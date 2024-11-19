@@ -196,9 +196,7 @@ Primary data for this project comes from:
 4. Mandel & Agol 2002, "Analytic Light Curves for Planetary Transit Searches"
 5. Seager & Mallén-Ornelas 2003, "A Unique Solution of Planet and Star Parameters from an Extrasolar Planet Transit Light Curve"
 
-## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details.
 
 ## Contributing
 
