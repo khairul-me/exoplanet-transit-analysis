@@ -148,6 +148,8 @@ graph TD
 ```
 
 ## Results Validation
+![binned_transit_PLC](https://github.com/user-attachments/assets/7cfda770-55a5-4923-9bcf-d55545c0726e)
+![transit_curve_PLC](https://github.com/user-attachments/assets/a33aafb7-eac4-4d90-b52d-6f87e6b49a30)
 
 Our analysis pipeline results are validated against:
 - Published literature values
