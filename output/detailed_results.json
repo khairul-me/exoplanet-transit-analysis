@@ -1,0 +1,18 @@
+{
+    "PLC": {
+        "Transit Depth": -0.00694399999999995,
+        "Transit Duration (days)": 0.2412232800893219,
+        "Baseline Flux": 0.989577,
+        "Points in Transit": 1127,
+        "Total Points": 2392,
+        "RMS Scatter": 0.010746911788527902,
+        "Model Parameters": [
+            0.006327112413701715,
+            0.1,
+            0.0
+        ],
+        "Planet Radius (Jupiter radii)": NaN,
+        "Semi-major Axis (AU)": 0.04533043866801457,
+        "Impact Parameter": null
+    }
+}

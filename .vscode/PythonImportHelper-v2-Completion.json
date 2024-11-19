@@ -1,0 +1,214 @@
+[
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "stats",
+        "importPath": "scipy",
+        "description": "scipy",
+        "isExtraImport": true,
+        "detail": "scipy",
+        "documentation": {}
+    },
+    {
+        "label": "stats",
+        "importPath": "scipy",
+        "description": "scipy",
+        "isExtraImport": true,
+        "detail": "scipy",
+        "documentation": {}
+    },
+    {
+        "label": "glob",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "glob",
+        "description": "glob",
+        "detail": "glob",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "curve_fit",
+        "importPath": "scipy.optimize",
+        "description": "scipy.optimize",
+        "isExtraImport": true,
+        "detail": "scipy.optimize",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "sigma_clip",
+        "importPath": "astropy.stats",
+        "description": "astropy.stats",
+        "isExtraImport": true,
+        "detail": "astropy.stats",
+        "documentation": {}
+    },
+    {
+        "label": "clean_data_file",
+        "kind": 2,
+        "importPath": "transit_analysis",
+        "description": "transit_analysis",
+        "peekOfCode": "def clean_data_file(file_path):\n    \"\"\"Clean and load transit data files while handling different formats\"\"\"\n    try:\n        # Read the entire file first to find the data start\n        with open(file_path, 'r') as f:\n            lines = f.readlines()\n        # Find where the actual data starts\n        for i, line in enumerate(lines):\n            if '|' in line and all(col in line for col in ['HJD', 'Relative_Flux']):\n                header_row = i",
+        "detail": "transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_phase",
+        "kind": 2,
+        "importPath": "transit_analysis",
+        "description": "transit_analysis",
+        "peekOfCode": "def calculate_phase(time, epoch, period):\n    \"\"\"Calculate orbital phase from time series\"\"\"\n    phase = ((time - epoch) / period) % 1\n    phase[phase > 0.5] = phase[phase > 0.5] - 1\n    return phase\ndef plot_transit_curve(df, wavelength=None, save=False, output_dir='output'):\n    \"\"\"Plot transit light curve with error bars\"\"\"\n    plt.figure(figsize=(12, 6))\n    # Plot points with error bars\n    plt.errorbar(df['phase'], df['Relative_Flux'],",
+        "detail": "transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "plot_transit_curve",
+        "kind": 2,
+        "importPath": "transit_analysis",
+        "description": "transit_analysis",
+        "peekOfCode": "def plot_transit_curve(df, wavelength=None, save=False, output_dir='output'):\n    \"\"\"Plot transit light curve with error bars\"\"\"\n    plt.figure(figsize=(12, 6))\n    # Plot points with error bars\n    plt.errorbar(df['phase'], df['Relative_Flux'],\n                yerr=df['Relative_Flux_Uncertainty'],\n                fmt='o', markersize=2, alpha=0.5, color='blue',\n                ecolor='gray', elinewidth=1, capsize=2)\n    # Add labels and title\n    plt.xlabel('Orbital Phase')",
+        "detail": "transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "analyze_transit",
+        "kind": 2,
+        "importPath": "transit_analysis",
+        "description": "transit_analysis",
+        "peekOfCode": "def analyze_transit(df):\n    \"\"\"Calculate basic transit parameters\"\"\"\n    # Find transit depth\n    out_of_transit = df[abs(df['phase']) > 0.02]['Relative_Flux']\n    baseline = np.median(out_of_transit)\n    in_transit = df[abs(df['phase']) < 0.02]['Relative_Flux']\n    transit_minimum = np.median(in_transit)\n    transit_depth = baseline - transit_minimum\n    # Estimate transit duration\n    in_transit_mask = df['Relative_Flux'] < (baseline - transit_depth/2)",
+        "detail": "transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "transit_analysis",
+        "description": "transit_analysis",
+        "peekOfCode": "def main():\n    # System parameters\n    PERIOD = 3.52474859  # days\n    EPOCH = 2452826.628521  # HJD\n    # Setup output directory\n    output_dir = 'output'\n    os.makedirs(output_dir, exist_ok=True)\n    # Process all data files\n    data_files = glob.glob('*PLC*.txt')\n    all_results = {}",
+        "detail": "transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "clean_data_file",
+        "kind": 2,
+        "importPath": "updated_transit_analysis",
+        "description": "updated_transit_analysis",
+        "peekOfCode": "def clean_data_file(file_path):\n    \"\"\"Clean and load transit data files while handling different formats\"\"\"\n    try:\n        with open(file_path, 'r') as f:\n            lines = f.readlines()\n        # Find where the actual data starts\n        for i, line in enumerate(lines):\n            if '|' in line and all(col in line for col in ['HJD', 'Relative_Flux']):\n                header_row = i\n                data_start = i + 3",
+        "detail": "updated_transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_phase",
+        "kind": 2,
+        "importPath": "updated_transit_analysis",
+        "description": "updated_transit_analysis",
+        "peekOfCode": "def calculate_phase(time, epoch, period):\n    \"\"\"Calculate orbital phase from time series\"\"\"\n    phase = ((time - epoch) / period) % 1\n    phase[phase > 0.5] = phase[phase > 0.5] - 1\n    return phase\ndef transit_model(phase, depth, duration, t0):\n    \"\"\"Simple trapezoid transit model\"\"\"\n    flux = np.ones_like(phase)\n    in_transit = np.abs(phase - t0) < duration/2\n    flux[in_transit] = 1 - depth",
+        "detail": "updated_transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "transit_model",
+        "kind": 2,
+        "importPath": "updated_transit_analysis",
+        "description": "updated_transit_analysis",
+        "peekOfCode": "def transit_model(phase, depth, duration, t0):\n    \"\"\"Simple trapezoid transit model\"\"\"\n    flux = np.ones_like(phase)\n    in_transit = np.abs(phase - t0) < duration/2\n    flux[in_transit] = 1 - depth\n    return flux\ndef fit_transit_model(df):\n    \"\"\"Fit transit model to data\"\"\"\n    try:\n        # Initial parameter guesses",
+        "detail": "updated_transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fit_transit_model",
+        "kind": 2,
+        "importPath": "updated_transit_analysis",
+        "description": "updated_transit_analysis",
+        "peekOfCode": "def fit_transit_model(df):\n    \"\"\"Fit transit model to data\"\"\"\n    try:\n        # Initial parameter guesses\n        p0 = [0.01, 0.1, 0.0]  # depth, duration, t0\n        bounds = ([0, 0.01, -0.1], [0.1, 0.5, 0.1])  # parameter bounds\n        popt, pcov = curve_fit(transit_model, df['phase'], df['Relative_Flux'], \n                             p0=p0, bounds=bounds, sigma=df['Relative_Flux_Uncertainty'])\n        return popt, pcov\n    except:",
+        "detail": "updated_transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_planet_parameters",
+        "kind": 2,
+        "importPath": "updated_transit_analysis",
+        "description": "updated_transit_analysis",
+        "peekOfCode": "def calculate_planet_parameters(transit_depth, period, stellar_mass=1.0, stellar_radius=1.0):\n    \"\"\"\n    Calculate basic planetary parameters\n    Assuming solar-like star if stellar parameters not provided\n    \"\"\"\n    # Convert units to SI\n    period_s = period * 24 * 3600  # days to seconds\n    stellar_mass_kg = stellar_mass * 1.989e30  # solar masses to kg\n    stellar_radius_m = stellar_radius * 6.957e8  # solar radii to meters\n    G = 6.67430e-11  # gravitational constant",
+        "detail": "updated_transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "plot_transit_curve",
+        "kind": 2,
+        "importPath": "updated_transit_analysis",
+        "description": "updated_transit_analysis",
+        "peekOfCode": "def plot_transit_curve(df, model_params=None, wavelength=None, save=False, output_dir='output'):\n    \"\"\"Plot transit light curve with error bars and model fit\"\"\"\n    plt.figure(figsize=(12, 8))\n    # Plot data points\n    plt.errorbar(df['phase'], df['Relative_Flux'],\n                yerr=df['Relative_Flux_Uncertainty'],\n                fmt='o', markersize=2, alpha=0.5, color='blue',\n                ecolor='gray', elinewidth=1, capsize=2, label='Data')\n    # Plot running mean\n    bin_means, bin_edges, _ = stats.binned_statistic(",
+        "detail": "updated_transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "analyze_transit",
+        "kind": 2,
+        "importPath": "updated_transit_analysis",
+        "description": "updated_transit_analysis",
+        "peekOfCode": "def analyze_transit(df, period):\n    \"\"\"Calculate comprehensive transit parameters\"\"\"\n    # Basic transit parameters\n    out_of_transit = df[abs(df['phase']) > 0.02]['Relative_Flux']\n    baseline = np.median(out_of_transit)\n    in_transit = df[abs(df['phase']) < 0.02]['Relative_Flux']\n    transit_minimum = np.median(in_transit)\n    transit_depth = baseline - transit_minimum\n    # Transit duration\n    in_transit_mask = df['Relative_Flux'] < (baseline - transit_depth/2)",
+        "detail": "updated_transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "plot_phase_binned",
+        "kind": 2,
+        "importPath": "updated_transit_analysis",
+        "description": "updated_transit_analysis",
+        "peekOfCode": "def plot_phase_binned(df, bin_size=0.001, save=False, output_dir='output', wavelength=None):\n    \"\"\"Create phase-binned light curve\"\"\"\n    plt.figure(figsize=(12, 6))\n    # Create phase bins\n    bins = np.arange(-0.05, 0.05 + bin_size, bin_size)\n    binned_flux = []\n    binned_err = []\n    bin_centers = []\n    for i in range(len(bins)-1):\n        mask = (df['phase'] >= bins[i]) & (df['phase'] < bins[i+1])",
+        "detail": "updated_transit_analysis",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "updated_transit_analysis",
+        "description": "updated_transit_analysis",
+        "peekOfCode": "def main():\n    # System parameters\n    PERIOD = 3.52474859  # days\n    EPOCH = 2452826.628521  # HJD\n    # Setup output directory\n    output_dir = 'output'\n    os.makedirs(output_dir, exist_ok=True)\n    # Process all data files\n    data_files = glob.glob('*PLC*.txt')\n    all_results = {}",
+        "detail": "updated_transit_analysis",
+        "documentation": {}
+    }
+]
